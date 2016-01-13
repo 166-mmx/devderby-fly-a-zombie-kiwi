@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Fly-a-zombie-kiwi</title>
+<meta name="viewport" content="width=850, user-scalable=no">
+<link href='http://fonts.googleapis.com/css?family=Trade+Winds' rel='stylesheet' type='text/css'>
+<style>
+	
+	html, body, div, span, applet, object, iframe,
+	h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+	a, abbr, acronym, address, big, cite, code,
+	del, dfn, em, img, ins, kbd, q, s, samp,
+	small, strike, strong, sub, sup, tt, var,
+	b, u, i, center,
+	dl, dt, dd, ol, ul, li,
+	fieldset, form, label, legend,
+	table, caption, tbody, tfoot, thead, tr, th, td,
+	article, aside, canvas, details, embed, 
+	figure, figcaption, footer, header, hgroup, 
+	menu, nav, output, ruby, section, summary,
+	time, mark, audio, video {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		font-size: 100%;
+		font: inherit;
+		vertical-align: baseline;
+	}
+	/* HTML5 display-role reset for older browsers */
+	article, aside, details, figcaption, figure, 
+	footer, header, hgroup, menu, nav, section {
+		display: block;
+	}
+	body {
+		line-height: 1;
+	}
+	ol, ul {
+		list-style: none;
+	}
+	blockquote, q {
+		quotes: none;
+	}
+	blockquote:before, blockquote:after,
+	q:before, q:after {
+		content: '';
+		content: none;
+	}
+	table {
+		border-collapse: collapse;
+		border-spacing: 0;
+	}
+
+
+	.title-track {
+		-moz-transform:rotate(270deg);
+		-moz-transform-origin: top right;
+		-webkit-transform:rotate(270deg);
+		-webkit-transform-origin: top right;
+		-o-transform:rotate(270deg);
+		-o-transform-origin: top right;
+		-ms-transform:rotate(270deg);
+		-ms-transform-origin: top right;
+		position:absolute;
+		top: 0px; left:0px;
+		height:100px;
+		width:500px;
+		margin-left:-500px;
+	}
+	.content {
+		width:800px;
+		height:500px;
+		margin:30px -400px 0px;
+		position: absolute;
+		left:50%;
+		transform-origin: center top;
+		-moz-transform-origin: center top;
+		-webkit-transform-origin: center top;
+		-o-transform-origin: center top;
+	}
+	
+	.mobile .content {
+		margin-top:0px;
+	}
+	
+	canvas {
+		position:absolute;
+		left: 100px;
+		width:700px;
+		height:500px;
+		z-index:1;
+		border-radius:12px;
+		border: 0px;
+	}
+	
+	.screen {
+		text-align:center;
+		transform-origin: 0 0;
+		-moz-transform-origin: 0 0;
+		-webkit-transform-origin: 0 0;
+		-o-transform-origin: 0 0;
+		border-radius: 12px;
+		position:absolute;
+		left: 100px;
+		width:700px;
+		height:500px;
+		background: rgba(0,0,0,0.5);
+		display:none;
+	}
+	
+	#start-screen {
+		z-index:2;
+		color: white;
+	}
+	
+	#finish-screen {
+		z-index:4;
+		color: white;
+	}
+	
+	h2 {
+		font-size:48px;
+		margin:30px 30px 30px;
+	}
+	
+	h1 {
+		font-size:56px;
+		display:block;
+		position:absolute;
+		bottom:40px;
+		left: 0px;
+	}
+	
+	a.button {
+		padding:20px 30px;
+		color:white;
+		font-size:24px;
+		background: rgba(0,0,0,0.7);
+		text-decoration:none;
+		border-radius:20px;
+		display:inline-block;
+		border:solid 2px rgba(255,255,255,0.7);
+	}
+	
+	a.button:hover {
+		background:rgba(255,255,255,0.2)
+	}
+	
+	#friends-container {
+		position:absolute;
+		top:300px;
+		left:80px;
+		width:200px;
+		text-align:center;
+	}
+		
+	#controls-container {
+		position:absolute;
+		top:210px;
+		font-size:20px;
+		line-height:150%;
+		right:150px;
+		width:400px;
+		text-align:center;
+	}
+	
+	#brains-container {
+		position:absolute;
+		top:300px;
+		right:80px;
+		width:200px;
+		text-align:center;
+	}
+	
+	#tunnel {
+		width: 173px;
+		height: 69px;
+		top:50px;
+		left:12px;
+	}
+	
+	#starfish {
+		width:250px;
+		height:50px;
+		top: 150px;
+		left: -26px;
+	}
+	
+	#brain {
+		width:44px;
+		height:44px;
+		top:65px;
+		left:82px;
+	}
+	
+	@media all and (orientation:portrait) {
+		#orientation-handler {
+			width:2px;
+		}
+	}
+	
+	@media all and (orientation:landscape) {
+		#orientation-handler {
+			width:1px;
+		}
+	}
+	
+	body, html {
+		font-family: 'Trade Winds', cursive;
+	}
+	
+	.author {
+		display:block;
+		position:absolute;
+		bottom:11px;
+	}
+	
+	.author a {
+		color:#333333;
+		text-decoration: none;
+	}
+	
+	.author a:hover {
+		text-decoration: underline;
+	}
+	
+	.result {
+		font-size: 38px;
+		margin-bottom: 50px;
+	}
+	
+	#content {
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		-o-user-select: none;
+		user-select: none;
+	}
+</style>
+</head>
+<body>
+<div class="content" id="content">
+	<div class="title-track">
+		<h1>Fly-a-zombie-kiwi</h1>
+		<p class="author"><a href="http://michal.biniek.pl" onclick="window.open(this.href); return false;">by Michal Biniek</a></p>
+	</div>
+	<div id="start-screen" class="screen">
+		<h2>Fly-a-zombie-kiwi</h2>
+		<a href="#" class="button" id="start">Start</a>
+		<div id="friends-container">
+			<p>Your friends</p>
+			<canvas id="tunnel" width="173" height="69"></canvas>
+			<canvas id="starfish" width="250" height="50"></canvas>
+		</div>
+		
+		<div id="controls-container">
+			<p>DRAG ZOMBIE-KIWI TO START</p>
+			<p>TAP/CLICK TO JUMP</p>
+		</div>
+		
+		<div id="brains-container">
+			<p>Collect brains to fill up you brain-mana</p>
+			<canvas id="brain" width="44" height="44"></canvas>
+		</div>
+	</div>
+	<div id="finish-screen" class="screen">
+		<h2>GAME OVER</h2>
+		<div class="result">Your distance: <span id="meters"></span> m</div>
+		<a href="#" id="restart" class="button">Restart</a>
+	</div>
+	<canvas id="canvas" width="700" height="500"></canvas>
+	<div id="orientation-handler"></div>
+</div>
+
+<script src="script.js">
+
+</script>
+</body>
+</html>
